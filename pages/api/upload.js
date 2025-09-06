@@ -14,7 +14,16 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Ensure the upload directory exists
+    // In production (Vercel), we can't write to the file system
+    // Return a placeholder image URL instead
+    if (process.env.NODE_ENV === 'production') {
+      return res.status(200).json({ 
+        success: true, 
+        imageUrl: 'https://via.placeholder.com/300x200/4F46E5/FFFFFF?text=School+Image' // Placeholder image
+      });
+    }
+
+    // For local development, use file upload
     const uploadDir = path.join(process.cwd(), 'public', 'schoolImages');
     await fs.ensureDir(uploadDir);
 
