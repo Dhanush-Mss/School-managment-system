@@ -7,11 +7,13 @@ export default async function handler(req, res) {
   
   if (req.method === 'POST') {
     try {
+      console.log('Received school data:', req.body);
       const schoolId = await createSchool(req.body);
+      console.log('School created with ID:', schoolId);
       res.status(201).json({ success: true, id: schoolId });
     } catch (error) {
       console.error('Error creating school:', error);
-      res.status(500).json({ success: false, error: 'Failed to create school' });
+      res.status(500).json({ success: false, error: 'Failed to create school', details: error.message });
     }
   } else if (req.method === 'GET') {
     try {

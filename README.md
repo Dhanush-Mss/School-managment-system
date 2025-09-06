@@ -40,6 +40,3 @@ A modern web application built with Next.js and MySQL for managing school data.
 - Upload school images
 - Navigate between pages
 
-## License
-
-MIT License
