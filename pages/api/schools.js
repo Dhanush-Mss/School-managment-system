@@ -2,8 +2,12 @@ import { createSchool, getAllSchools } from '../../lib/schools.js';
 import { initDatabase } from '../../lib/db.js';
 
 export default async function handler(req, res) {
-  // Initialize database on first request
-  await initDatabase();
+  // Try to initialize database, but don't fail if it doesn't work
+  try {
+    await initDatabase();
+  } catch (error) {
+    console.log('Database initialization failed, using fallback storage');
+  }
   
   if (req.method === 'POST') {
     try {
